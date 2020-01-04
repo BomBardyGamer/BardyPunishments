@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
+@SuppressWarnings("NullableProblems")
 @NoArgsConstructor
 @Getter
 @Setter

@@ -17,6 +17,12 @@ import java.sql.SQLException;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Used for initialising database tables
+ *
+ * @author BomBardyGamer
+ * @since 1.0
+ */
 public class DatabaseWrapper {
 
     private final ConnectionSource connectionSource;
@@ -36,6 +42,14 @@ public class DatabaseWrapper {
         this.historyDao = DaoManager.createDao(connectionSource, PunishHistory.class);
     }
 
+    /**
+     * Fetches a {@code CompletableFuture<@Nullable PunishPlayer>} object from the database
+     * from their {@code UUID}
+     *
+     * @param uuid the {@code UUID} of the {@code PunishPlayer} being fetched
+     * @return a {@code CompletableFuture<@Nullable PunishPlayer>} object of the player from
+     * the database, or else null
+     */
     public CompletableFuture<@Nullable PunishPlayer> getPlayerByUUID(@NotNull UUID uuid) {
         return CompletableFuture.supplyAsync(() -> {
             try {
@@ -47,6 +61,13 @@ public class DatabaseWrapper {
         });
     }
 
+    /**
+     * Fetches a {@code CompletableFuture<@Nullable PunishPlayer>} object from the database
+     * from their username
+     * @param name the username of the player
+     * @return a {@code CompletableFuture<@Nullable PunishPlayer>} object of the player from
+     * the database, or else null
+     */
     public CompletableFuture<@Nullable PunishPlayer> getPlayerByName(@NotNull String name) {
         return CompletableFuture.supplyAsync(() -> {
             try {
@@ -61,6 +82,11 @@ public class DatabaseWrapper {
         });
     }
 
+    /**
+     * Saves a {@code Punishment} object to the database
+     *
+     * @param punishment the {@code Punishment} object to be saved
+     */
     public void savePunishment(@NotNull Punishment punishment) {
         try {
             punishmentDao.createOrUpdate(punishment);
